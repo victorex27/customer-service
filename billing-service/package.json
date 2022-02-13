@@ -1,0 +1,50 @@
+{
+  "name": "money",
+  "version": "1.0.0",
+  "description": "Customer Service",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "npm run build && node dist/index",
+    "dev": "nodemon --exec babel-node src/index",
+    "build": "babel src --copy-files --out-dir dist"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/victorex27/customer-service"
+  },
+  "keywords": [
+    "Test"
+  ],
+  "author": "Amaobi Obikobe",
+  "license": "ISC",
+  "dependencies": {
+    "@babel/cli": "^7.10.1",
+    "@babel/core": "^7.10.2",
+    "@babel/node": "^7.10.1",
+    "@babel/plugin-transform-runtime": "^7.10.1",
+    "@babel/preset-env": "^7.10.2",
+    "@babel/register": "^7.10.1",
+    "@babel/runtime": "^7.10.2",
+    "@hapi/joi": "^17.1.1",
+    "axios": "^0.19.2",
+    "babelrc-rollup": "^3.0.0",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "helmet": "^4.6.0",
+    "hide-powered-by": "^1.1.0",
+    "joi": "^17.4.2",
+    "moment": "^2.29.1",
+    "nocache": "^3.0.1",
+    "swagger-ui-express": "^4.1.6"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.3",
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb-base": "^14.1.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-import": "^2.21.1",
+    "prettier": "2.0.5",
+    "nodemon": "^2.0.4"
+  }
+}

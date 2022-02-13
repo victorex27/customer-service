@@ -1,0 +1,204 @@
+{
+  "swagger": "2.0",
+  "schemes": ["http","https"],
+  "securityDefinitions": {},
+  "info": {
+    "title": "Access Reach Money Module (Guinea)",
+    "version": "1.0.0",
+    "description": "Module responsible for handling money requests in the application"
+  },
+  "host": "localhost:2005",
+  "basePath": "/api",
+  "paths": {
+    "/v1/money/transfer/intra-bank": {
+      "post": {
+        "summary": "Access To Access Transfer",
+        "tags": ["Transfer"],
+        "produces": ["application/json"],
+        "consumes": ["application/json"],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/INTRA-TRANSFER"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "schema": {
+              "$ref": "#/definitions/SuccessResponse"
+            }
+          },
+          "400": {
+            "description": "Transfer Failed.",
+            "schema": {
+              "$ref": "#/definitions/Error400Response"
+            }
+          }
+        }
+      }
+    },
+    "/v1/money/transfer/inter-bank": {
+      "post": {
+        "summary": "Access To Other Bank Transfer",
+        "tags": ["Transfer"],
+        "produces": ["application/json"],
+        "consumes": ["application/json"],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/INTER-TRANSFER"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "schema": {
+              "$ref": "#/definitions/SuccessResponse"
+            }
+          },
+          "400": {
+            "description": "Transfer Failed.",
+            "schema": {
+              "$ref": "#/definitions/Error400Response"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "INTRA-TRANSFER": {
+      "type": "object",
+      "required": ["sourceAccountNumber", "destinationAccountNumber", "sourceAccountBranchCode","destinationAccountBranchCode","amount"],
+      "properties": {
+        "sourceAccountNumber": {
+          "$ref": "#/definitions/StringSchema"
+        },
+        "sourceAccountBranchCode": {
+          "$ref": "#/definitions/StringSchema"
+        },
+        "destinationAccountNumber": {
+          "$ref": "#/definitions/StringSchema"
+        },
+        "destinationAccountBranchCode": {
+          "$ref": "#/definitions/StringSchema"
+        },
+        "amount": {
+          "$ref": "#/definitions/NumberSchema"
+        }
+      },
+      "example": {
+        "sourceAccountNumber": "1238860099",
+        "sourceAccountBranchCode": "001",
+        "destinationAccountNumber": "0004136261",
+        "destinationAccountBranchCode": "002",
+        "amount": 1000,
+        "narration":""
+      }
+    },
+    "INTER-TRANSFER": {
+      "type": "object",
+      "required": [
+        "sourceAccountNumber",
+        "destinationAccountNumber",
+        "destinationBankCode",
+        "amount"
+      ],
+      "properties": {
+        "sourceAccountNumber": {
+          "$ref": "#/definitions/StringSchema"
+        },
+        "destinationAccountNumber": {
+          "$ref": "#/definitions/StringSchema"
+        },
+        "destinationBankCode": {
+          "$ref": "#/definitions/StringSchema"
+        },
+        "amount": {
+          "$ref": "#/definitions/NumberSchema"
+        },
+        "narration": {
+          "$ref": "#/definitions/StringSchema"
+        }
+      },
+      "example": {
+        "sourceAccountNumber": "1238860099",
+        "destinationAccountNumber": "0004136261",
+        "destinationBankCode": "003200",
+        "amount": 1000,
+        "narration":""
+      }
+    },
+
+  
+    "NumberSchema": {
+      "type": "number"
+    },
+    "StringSchema": {
+      "type": "string"
+    },
+   
+    "SuccessResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "number",
+          "description": "Status Code"
+        },
+        "data": {
+          "type": "object",
+          "properties": {
+            "transactionRef": {
+              "$ref": "#/definitions/StringSchema",
+              "description": "Reference gotten from response"
+            },
+            "message": {
+              "$ref": "#/definitions/StringSchema",
+              "description": "message showing success rate"
+            }
+          }
+        }
+      },
+      "example": {
+        "status": "200",
+        "data": {
+          "transactionRef": "tran-s-0004136261",
+          "message": "Transaction was successful"
+        }
+      }
+    },
+    "Error400Response": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "number",
+          "description": "200"
+        },
+        "data": {
+          "type": "object",
+          "properties": {
+            "message": {
+              "$ref": "#/definitions/StringSchema",
+              "description": "message showing success rate"
+            }
+          }
+        }
+      },
+      "example": {
+        "status": "400",
+        "data": {
+          "message": "Transaction was not successful"
+        }
+      }
+    }
+  }
+}
