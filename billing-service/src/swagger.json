@@ -3,7 +3,7 @@
   "schemes": ["http","https"],
   "securityDefinitions": {},
   "info": {
-    "title": "Access Reach Money Module (Guinea)",
+    "title": "Billing Service Endpoint",
     "version": "1.0.0",
     "description": "Module responsible for handling money requests in the application"
   },
@@ -12,7 +12,7 @@
   "paths": {
     "/v1/money/transfer/intra-bank": {
       "post": {
-        "summary": "Access To Access Transfer",
+        "summary": "Billing Service",
         "tags": ["Transfer"],
         "produces": ["application/json"],
         "consumes": ["application/json"],
@@ -23,38 +23,6 @@
             "required": true,
             "schema": {
               "$ref": "#/definitions/INTRA-TRANSFER"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "schema": {
-              "$ref": "#/definitions/SuccessResponse"
-            }
-          },
-          "400": {
-            "description": "Transfer Failed.",
-            "schema": {
-              "$ref": "#/definitions/Error400Response"
-            }
-          }
-        }
-      }
-    },
-    "/v1/money/transfer/inter-bank": {
-      "post": {
-        "summary": "Access To Other Bank Transfer",
-        "tags": ["Transfer"],
-        "produces": ["application/json"],
-        "consumes": ["application/json"],
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/INTER-TRANSFER"
             }
           }
         ],

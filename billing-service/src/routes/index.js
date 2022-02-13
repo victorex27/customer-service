@@ -1,10 +1,8 @@
-import InterBankRouter from '../components/InterBankTransfer/';
-import IntraBankRouter from '../components/IntraBankTransfer/';
+import Biller from '../components/Biller';
 
 export default (app) => {
   app.use(
-    '/api/v1/money',
-    InterBankRouter,
-    IntraBankRouter
+    '/api/v1/',
+    Biller
   );
 };

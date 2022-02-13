@@ -1,50 +1,18 @@
 {
   "swagger": "2.0",
-  "schemes": ["http","https"],
+  "schemes": ["http", "https"],
   "securityDefinitions": {},
   "info": {
-    "title": "Access Reach Money Module (Guinea)",
+    "title": "Customer Service Endpoint",
     "version": "1.0.0",
     "description": "Module responsible for handling money requests in the application"
   },
   "host": "localhost:2005",
   "basePath": "/api",
   "paths": {
-    "/v1/money/transfer/intra-bank": {
-      "post": {
-        "summary": "Access To Access Transfer",
-        "tags": ["Transfer"],
-        "produces": ["application/json"],
-        "consumes": ["application/json"],
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/INTRA-TRANSFER"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "schema": {
-              "$ref": "#/definitions/SuccessResponse"
-            }
-          },
-          "400": {
-            "description": "Transfer Failed.",
-            "schema": {
-              "$ref": "#/definitions/Error400Response"
-            }
-          }
-        }
-      }
-    },
     "/v1/money/transfer/inter-bank": {
       "post": {
-        "summary": "Access To Other Bank Transfer",
+        "summary": "Customer Service",
         "tags": ["Transfer"],
         "produces": ["application/json"],
         "consumes": ["application/json"],
@@ -78,7 +46,13 @@
   "definitions": {
     "INTRA-TRANSFER": {
       "type": "object",
-      "required": ["sourceAccountNumber", "destinationAccountNumber", "sourceAccountBranchCode","destinationAccountBranchCode","amount"],
+      "required": [
+        "sourceAccountNumber",
+        "destinationAccountNumber",
+        "sourceAccountBranchCode",
+        "destinationAccountBranchCode",
+        "amount"
+      ],
       "properties": {
         "sourceAccountNumber": {
           "$ref": "#/definitions/StringSchema"
@@ -102,7 +76,7 @@
         "destinationAccountNumber": "0004136261",
         "destinationAccountBranchCode": "002",
         "amount": 1000,
-        "narration":""
+        "narration": ""
       }
     },
     "INTER-TRANSFER": {
@@ -135,18 +109,17 @@
         "destinationAccountNumber": "0004136261",
         "destinationBankCode": "003200",
         "amount": 1000,
-        "narration":""
+        "narration": ""
       }
     },
 
-  
     "NumberSchema": {
       "type": "number"
     },
     "StringSchema": {
       "type": "string"
     },
-   
+
     "SuccessResponse": {
       "type": "object",
       "properties": {
