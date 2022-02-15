@@ -1,10 +1,108 @@
 version: "3.7"
-
 services:
-  ruby_dev:
-    build: .
-    container_name: ruby_container
+  postgres:
+    image: postgres:10.5
+    container_name: 'postgres'
+    restart: always
+    environment:
+        - POSTGRES_USER=postgres
+        - POSTGRES_PASSWORD=postgres
+        - POSTGRES_DB=pg_development
+    logging:
+      options:
+          max-size: 10m
+          max-file: "3"
     ports:
-      - "5000:5000"
+        - '5438:5432'
+    volumes: 
+         - ~/postgres-data:/var/lib/postgresql/data
+    networks:
+        - app-connection
+
+  
+  customer-service:
+    container_name: 'customer'
+    build:
+      context: ./customer-service
+      target: dev
     volumes:
-      - ./:/home/app
+      - .:/customer/src
+    command: npm run start
+    ports:
+      - "7000:7000"
+    environment:
+      NODE_ENV: development
+      DEBUG: nodejs-docker-express:*
+      BILLER_SERVICE_HOST: billing-service
+    env_file:
+      - customerservice.env
+    networks:
+        - app-connection
+  
+
+  billing-service:
+    container_name: 'billing-service'
+    build:
+      context: ./billing-service
+      target: dev
+    depends_on:
+      - postgres
+    links:
+      - postgres
+    entrypoint: ["/bin/sh", "entrypoint.sh"]
+    volumes:
+      - .:/billing/src
+    command: npm run start
+    ports:
+      - "6000:6000"
+    environment:
+      NODE_ENV: development
+      DEBUG: nodejs-docker-express:*
+      DATABASE_HOST: postgres
+      AMQP_HOST: rabbitmq
+    env_file:
+      - billingservice.env
+    networks:
+        - app-connection
+  
+  billing-worker-service:
+    container_name: 'biller-worker'
+    build:
+      context: ./billing-worker-service
+      target: dev
+    volumes:
+      - .:/billing/worker/src
+    depends_on:
+      - rabbitmq
+    links:
+      - rabbitmq
+    command: npm run start
+    environment:
+      NODE_ENV: development
+      DEBUG: nodejs-docker-express:*
+      BILLER_SERVICE_HOST: billing-service
+      AMQP_HOST: rabbitmq
+    env_file:
+      - billingworkerservice.env
+    networks:
+        - app-connection
+
+  rabbitmq:
+    image: rabbitmq:3.8-management-alpine
+    container_name: 'rabbitmq'
+    ports:
+        - 5673:5672
+        - 15673:15672
+    volumes:
+        - ~/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/
+        - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq
+    networks:
+        - app-connection
+
+  
+  
+
+networks:
+  app-connection:
+    driver: bridge 
+      

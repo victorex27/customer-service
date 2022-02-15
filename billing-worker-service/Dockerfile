@@ -1,13 +1,12 @@
-FROM ruby
+FROM node:14-alpine as base
 
-WORKDIR /home/app
+WORKDIR /
+COPY package*.json /
+EXPOSE 5000
 
-ENV PORT 3000
 
-EXPOSE $PORT
-
-RUN gem install rails bundler
-RUN gem install rails
-RUN apt-get update -qq && apt-get install -y nodejs
-
-ENTRYPOINT [ "/bin/bash" ]
+FROM base as dev
+ENV NODE_ENV=development
+RUN npm install
+COPY . .
+CMD ["npm","dev"]

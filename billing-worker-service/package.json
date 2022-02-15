@@ -1,0 +1,25 @@
+{
+  "name": "billing-worker-service",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/consumer.js",
+  "scripts": {
+    "start": "npm run build && node dist/index",
+    "dev": "nodemon --exec ./node_modules/.bin/babel-node src/index",
+    "build": "babel src --copy-files --out-dir dist"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "amqplib": "^0.8.0",
+    "axios": "^0.26.0",
+    "dotenv": "^16.0.0",
+    "@babel/cli": "^7.10.1",
+    "@babel/core": "^7.10.2",
+    "@babel/node": "^7.10.1",
+    "@babel/plugin-transform-runtime": "^7.10.1",
+    "@babel/preset-env": "^7.10.2",
+    "@babel/register": "^7.10.1",
+    "@babel/runtime": "^7.10.2"
+  }
+}

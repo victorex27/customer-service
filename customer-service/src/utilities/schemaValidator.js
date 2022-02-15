@@ -1,6 +1,5 @@
 /* eslint-disable max-len */
 /* eslint-disable no-return-await */
-import Response from './Response';
 
 export const joiHandler = async (schema, req, res, next, reqObj = {}) => {
   try {
@@ -16,7 +15,6 @@ export const joiHandler = async (schema, req, res, next, reqObj = {}) => {
 
     next();
   } catch (error) {
-    console.log('error: ', error);
     return res.status(422).send({
       status: 422,
       message: error.message

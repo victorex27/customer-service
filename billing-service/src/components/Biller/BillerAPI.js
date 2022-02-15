@@ -13,10 +13,10 @@ BillerAPI.post(
 );
 
 
-BillerAPI.post(
+BillerAPI.patch(
   '/update',
   validate(updateTransaction),
-  BillerController.postTransaction
+  BillerController.updateTransaction
 );
 
 export default BillerAPI;

@@ -3,10 +3,10 @@ import CustomerService from './CustomerService';
 class CustomerController {
   static async postTransaction(req, res) {
     try {
-      const { customerName, narration, amount } = req.body;
+      const { customerId: id, narration, amount } = req.body;
 
       const transaction = await CustomerService.postTransaction({
-        customerName,
+        id,
         narration,
         amount,
       });
@@ -20,10 +20,9 @@ class CustomerController {
         },
       });
     } catch (error) {
-      console.log(error.message);
-      return res.status(500).send({
-        status: 500,
-        message: 'Operation Failed',
+      return res.status(400).send({
+        status: 400,
+        message: error.message || 'Operation Failed',
       });
     }
   }

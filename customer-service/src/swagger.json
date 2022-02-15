@@ -3,17 +3,17 @@
   "schemes": ["http", "https"],
   "securityDefinitions": {},
   "info": {
-    "title": "Customer Service Endpoint",
+    "title": "Customer Service Module",
     "version": "1.0.0",
     "description": "Module responsible for handling money requests in the application"
   },
-  "host": "localhost:2005",
+  "host": "localhost:7000",
   "basePath": "/api",
   "paths": {
-    "/v1/money/transfer/inter-bank": {
+    "/v1/customer": {
       "post": {
         "summary": "Customer Service",
-        "tags": ["Transfer"],
+        "tags": ["Transaction"],
         "produces": ["application/json"],
         "consumes": ["application/json"],
         "parameters": [
@@ -22,7 +22,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/INTER-TRANSFER"
+              "$ref": "#/definitions/Customer"
             }
           }
         ],
@@ -44,72 +44,25 @@
     }
   },
   "definitions": {
-    "INTRA-TRANSFER": {
+    "Customer": {
       "type": "object",
-      "required": [
-        "sourceAccountNumber",
-        "destinationAccountNumber",
-        "sourceAccountBranchCode",
-        "destinationAccountBranchCode",
-        "amount"
-      ],
+      "required": ["customerId", "narration", "amount"],
       "properties": {
-        "sourceAccountNumber": {
-          "$ref": "#/definitions/StringSchema"
-        },
-        "sourceAccountBranchCode": {
-          "$ref": "#/definitions/StringSchema"
-        },
-        "destinationAccountNumber": {
-          "$ref": "#/definitions/StringSchema"
-        },
-        "destinationAccountBranchCode": {
-          "$ref": "#/definitions/StringSchema"
-        },
-        "amount": {
-          "$ref": "#/definitions/NumberSchema"
-        }
-      },
-      "example": {
-        "sourceAccountNumber": "1238860099",
-        "sourceAccountBranchCode": "001",
-        "destinationAccountNumber": "0004136261",
-        "destinationAccountBranchCode": "002",
-        "amount": 1000,
-        "narration": ""
-      }
-    },
-    "INTER-TRANSFER": {
-      "type": "object",
-      "required": [
-        "sourceAccountNumber",
-        "destinationAccountNumber",
-        "destinationBankCode",
-        "amount"
-      ],
-      "properties": {
-        "sourceAccountNumber": {
-          "$ref": "#/definitions/StringSchema"
-        },
-        "destinationAccountNumber": {
-          "$ref": "#/definitions/StringSchema"
-        },
-        "destinationBankCode": {
-          "$ref": "#/definitions/StringSchema"
-        },
-        "amount": {
+        "customerId": {
           "$ref": "#/definitions/NumberSchema"
         },
         "narration": {
           "$ref": "#/definitions/StringSchema"
+        },
+
+        "amount": {
+          "$ref": "#/definitions/NumberSchema"
         }
       },
       "example": {
-        "sourceAccountNumber": "1238860099",
-        "destinationAccountNumber": "0004136261",
-        "destinationBankCode": "003200",
+        "customerId": "1",
         "amount": 1000,
-        "narration": ""
+        "narration": "Test"
       }
     },
 
@@ -127,25 +80,51 @@
           "type": "number",
           "description": "Status Code"
         },
+        "message": {
+          "type": "string",
+          "description": "Status Message"
+        },
         "data": {
           "type": "object",
           "properties": {
-            "transactionRef": {
+            "id": {
               "$ref": "#/definitions/StringSchema",
-              "description": "Reference gotten from response"
+              "description": "id"
             },
-            "message": {
+            "customerId": {
               "$ref": "#/definitions/StringSchema",
-              "description": "message showing success rate"
+              "description": "customerId"
+            },
+            "amount": {
+              "$ref": "#/definitions/StringSchema",
+              "description": "amount"
+            },
+            "narration": {
+              "$ref": "#/definitions/StringSchema",
+              "description": "narration"
+            },
+            "createdAt": {
+              "$ref": "#/definitions/StringSchema",
+              "description": "createdAt"
+            },
+            "updatedAt": {
+              "$ref": "#/definitions/StringSchema",
+              "description": "updatedAt"
             }
           }
         }
       },
       "example": {
         "status": "200",
+        "message": "Transaction was successful",
         "data": {
-          "transactionRef": "tran-s-0004136261",
-          "message": "Transaction was successful"
+          "id": 1,
+          "customerId": 1,
+          "amount": 50,
+          "narration": "test",
+          "updatedAt": "2022-02-14T21:16:34.577Z",
+          "createdAt": "2022-02-14T21:16:34.577Z",
+          "status": "PENDING"
         }
       }
     },

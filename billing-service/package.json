@@ -1,11 +1,11 @@
 {
-  "name": "money",
+  "name": "biller-service",
   "version": "1.0.0",
   "description": "Customer Service",
   "main": "src/index.js",
   "scripts": {
     "start": "npm run build && node dist/index",
-    "dev": "nodemon --exec babel-node src/index",
+    "dev": "nodemon --exec ./node_modules/.bin/babel-node src/index.js",
     "build": "babel src --copy-files --out-dir dist",
     "migrate": "node_modules/.bin/sequelize db:migrate",
     "seed": "node_modules/.bin/sequelize db:seed:all",
@@ -31,6 +31,7 @@
     "@babel/register": "^7.10.1",
     "@babel/runtime": "^7.10.2",
     "@hapi/joi": "^17.1.1",
+    "amqplib": "^0.8.0",
     "axios": "^0.19.2",
     "babelrc-rollup": "^3.0.0",
     "cors": "^2.8.5",
