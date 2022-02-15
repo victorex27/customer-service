@@ -54,7 +54,7 @@ services:
       - .:/billing/src
     command: npm run start
     ports:
-      - "6000:6000"
+      - "7001:7001"
     environment:
       NODE_ENV: development
       DEBUG: nodejs-docker-express:*

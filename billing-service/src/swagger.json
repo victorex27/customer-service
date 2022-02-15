@@ -7,7 +7,7 @@
     "version": "1.0.0",
     "description": "Module responsible for handling money requests in the application"
   },
-  "host": "localhost:6000",
+  "host": "localhost:7001",
   "basePath": "/api",
   "paths": {
     "/v1/biller": {
@@ -41,6 +41,38 @@
           }
         }
       }
+    },
+    "/v1/biller/update": {
+      "post": {
+        "summary": "Biller Service update Transaction",
+        "tags": ["Transaction"],
+        "produces": ["application/json"],
+        "consumes": ["application/json"],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/BillerUpdate"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "schema": {
+              "$ref": "#/definitions/SuccessResponse"
+            }
+          },
+          "400": {
+            "description": "Transfer Failed.",
+            "schema": {
+              "$ref": "#/definitions/Error400Response"
+            }
+          }
+        }
+      }
     }
   },
   "definitions": {
@@ -48,7 +80,7 @@
       "type": "object",
       "required": ["id", "narration", "amount"],
       "properties": {
-        "BillerId": {
+        "id": {
           "$ref": "#/definitions/NumberSchema"
         },
         "narration": {
@@ -63,6 +95,30 @@
         "id": "1",
         "amount": 1000,
         "narration": "Test"
+      }
+    },
+    "BillerUpdate": {
+      "type": "object",
+      "required": ["id", "customerId", "amount", "status"],
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/NumberSchema"
+        },
+        "customerId": {
+          "$ref": "#/definitions/NumberSchema"
+        },
+        "status": {
+          "$ref": "#/definitions/StringSchema"
+        },
+        "amount": {
+          "$ref": "#/definitions/NumberSchema"
+        }
+      },
+      "example": {
+        "id": "1",
+        "customerId":"1",
+        "amount": 1000,
+        "narration": "SUCCESS"
       }
     },
 

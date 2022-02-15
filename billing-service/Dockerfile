@@ -2,7 +2,7 @@ FROM node:14-alpine as base
 
 WORKDIR /
 COPY package*.json /
-EXPOSE 6000
+EXPOSE 7001
 
 
 FROM base as dev

@@ -21,7 +21,7 @@ const pauseExecution = () => {
 
 const updateBillerRecord = ({ id, amount, customerId }) => {
   return axios.patch(
-    `http://${process.env.BILLER_SERVICE_HOST}:6000/api/v1/biller/update`,
+    `http://${process.env.BILLER_SERVICE_HOST}:7001/api/v1/biller/update`,
     {
       id,
       amount,
