@@ -43,7 +43,7 @@ docker-compose down
 
 ## Documentation
 
-View Documentation [Customer Service](http://localhost:7000/api-docs) on localhost after docker service is successfully started
+View Documentation [Customer Service](http://localhost:7000/api-docs) on localhost after docker service has successfully started
 
 ## Built With
 
@@ -55,6 +55,9 @@ View Documentation [Customer Service](http://localhost:7000/api-docs) on localho
 * [Docker-Compose](https://docs.docker.com/compose/install/) - An extension of docker
 * [Postgres](https://www.postgresql.org/) - the world's most advanced open source database
 * [ubuntu](https://ubuntu.com/) - OS
+* [Rabbitmq](https://www.rabbitmq.com/) - Open Source Broker
+
+
 
 ## Contributing
 
