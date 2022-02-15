@@ -43,7 +43,7 @@ docker-compose down
 
 ## Documentation
 
-View Documentation [Customer Service](http://127.0.0.1:7000/api-docs) on localhost after docker service is successfully started
+View Documentation [Customer Service](http://localhost:7000/api-docs) on localhost after docker service is successfully started
 
 ## Built With
 
