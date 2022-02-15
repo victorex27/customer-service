@@ -45,6 +45,10 @@ docker-compose down
 
 View Documentation [Customer Service](http://localhost:7000/api-docs) on localhost after docker service has successfully started
 
+Rabbit Mq details can be viewed via [Rabbit Mq] (http://localhost:15673/).
+
+Default username and password is guest.
+
 ## Built With
 
 * [Nodejs](https://nodejs.org/en/) -  JavaScript runtime built on Chrome's V8 JavaScript engine
